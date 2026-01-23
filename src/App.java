@@ -15,12 +15,26 @@ public class App {
         // TODO 1: Create a Scanner for user input
         // -------------------------------------------------------------
 
+        Scanner input = new Scanner(System.in);
 
         // -------------------------------------------------------------
         // TODO 2: Give information about your program
         //         Ask the user about their goals (if applicable)
         // -------------------------------------------------------------
 
+        System.out.println("");
+        System.out.println("===========================================");
+        System.out.println("Welcome to the Weekly Data Analysis Program!");
+        System.out.println("This program will help you reduce your screen time.");
+        System.out.print("Do you have any specific goals for this week? (yes/no): ");
+        String goal = input.nextLine();
+        if (goal.equalsIgnoreCase("yes")) {
+            System.out.print("Please share your goal: ");
+            String userGoal = input.nextLine();
+            System.out.println("Great! Your goal is: " + userGoal);
+        } else {
+            System.out.println("No worries! Let's focus on tracking your screen time.");
+        }
 
         // -------------------------------------------------------------
         // TODO 3: Create an array to hold 7 days of data
@@ -28,6 +42,7 @@ public class App {
         //         Name the array weekData
         // -------------------------------------------------------------
 
+        double[] weekData = new double[7];
 
         // -------------------------------------------------------------
         // TODO 4: Use a for loop to collect data for each day of the week
@@ -39,12 +54,22 @@ public class App {
         //         - Re-prompt if the value is invalid
         // -------------------------------------------------------------
 
+        for (int i = 0; i < weekData.length; i++) {
+            System.out.print("Enter screen time in hours for day (number/decimal only) " + (i + 1) + ": ");
+            double dailyData = input.nextDouble();
+            while (dailyData < 0) {
+                System.out.print("Invalid input. Please enter a non-negative value for day " + (i + 1) + ": ");
+                dailyData = input.nextDouble();
+            }
+            weekData[i] = dailyData;
+        }
 
         // -------------------------------------------------------------
         // TODO 5: Create a WeeklyData object
         //         Pass the weekData array into the constructor
         // -------------------------------------------------------------
 
+        WeeklyData weeklyData = new WeeklyData(weekData);
 
         // -------------------------------------------------------------
         // TODO 6: Display the results of the analysis
@@ -57,12 +82,17 @@ public class App {
         //         Use clear labels and formatted output if needed
         // -------------------------------------------------------------
 
+        System.out.printf("Total screen time for the week: %.2f hours%n", weeklyData.getTotal());
+        System.out.printf("Average daily screen time: %.2f hours%n", weeklyData.getAverage());
+        System.out.printf("Minimum screen time in a day: %.2f hours%n", weeklyData.getMin());
+        System.out.printf("Maximum screen time in a day: %.2f hours%n", weeklyData.getMax());
 
         // -------------------------------------------------------------
         // TODO 7: Display the full week of data
         //         Use the toString() method from WeeklyData
         // -------------------------------------------------------------
-
+        System.out.println("Here is your screen time data for the week:");
+        System.out.println(weeklyData.toString());
 
         // -------------------------------------------------------------
         // TODO 8: Give the user insights about their week
@@ -71,6 +101,12 @@ public class App {
         //         --> etc.
         // -------------------------------------------------------------
 
+        if (weeklyData.getAverage() > 5) {
+            System.out.println("You spent quite a bit of time on screens this week. Consider reducing your screen time next week!");
+        } else {
+            System.out.println("Great job keeping your screen time low this week!");
+        }
 
+        input.close();
     }
 }
