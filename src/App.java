@@ -28,10 +28,12 @@ public class App {
         System.out.println("This program will help you reduce your screen time.");
         System.out.print("Do you have any specific goals for this week? (yes/no): ");
         String goal = input.nextLine();
+        double userGoal = 0;
         if (goal.equalsIgnoreCase("yes")) {
-            System.out.print("Please share your goal: ");
-            String userGoal = input.nextLine();
-            System.out.println("Great! Your goal is: " + userGoal);
+            System.out.print("Please share your goal (in hours): ");
+            userGoal = input.nextDouble();
+            input.nextLine(); // consume newline
+            System.out.println("Great! Your goal is: " + userGoal + " hours");
         } else {
             System.out.println("No worries! Let's focus on tracking your screen time.");
         }
@@ -101,10 +103,10 @@ public class App {
         //         --> etc.
         // -------------------------------------------------------------
 
-        if (weeklyData.getAverage() > 5) {
-            System.out.println("You spent quite a bit of time on screens this week. Consider reducing your screen time next week!");
+        if (weeklyData.getAverage() > userGoal) {
+            System.out.println("You spent quite a bit of time on screens this week. Consider reducing your screen time next week! \n Try to read a book or go for a walk instead.");
         } else {
-            System.out.println("Great job keeping your screen time low this week!");
+            System.out.println("Great job keeping your screen time low this week, keep it up! \nTry to reduce the time on the days you exceeded your goal.");
         }
 
         input.close();
